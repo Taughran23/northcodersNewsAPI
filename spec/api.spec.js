@@ -150,37 +150,50 @@ describe('API', function () {
         });
     });
     describe("POST /api/articles/:article_id/comments", () => {
-    it("should post a comment to a particular article", done => {
-      request(server)
-        .post(`/api/articles/${usefulData.articles[0]._id}/comments`)
-        .send({ comment: "HELLO, IS IT ME YOU ARE LOOKING FOOOOR" })
-        .end((err, res) => {
-          expect(res.status).to.equal(201);
-          expect(res.body.comment.body).to.equal('HELLO, IS IT ME YOU ARE LOOKING FOOOOR');
-          done();
+        it("should post a comment to a particular article", done => {
+            request(server)
+                .post(`/api/articles/${usefulData.articles[0]._id}/comments`)
+                .send({
+                    comment: "HELLO, IS IT ME YOU ARE LOOKING FOOOOR"
+                })
+                .end((err, res) => {
+                    expect(res.status).to.equal(201);
+                    expect(res.body.comment.body).to.equal('HELLO, IS IT ME YOU ARE LOOKING FOOOOR');
+                    done();
+                });
         });
     });
-  });
-   describe("PUT /api/articles/:article_id", () => {
-    it("should update the vote count of a particular article", done => {
-      request(server)
-        .put(`/api/articles/${usefulData.articles[0]._id}?vote=up`)
-        .end((err, res) => {
-          expect(res.status).to.equal(200);
-          expect(res.body.message).to.equal(1);
-          done();
+    describe("PUT /api/articles/:article_id", () => {
+        it("should update the vote count of a particular article", done => {
+            request(server)
+                .put(`/api/articles/${usefulData.articles[0]._id}?vote=up`)
+                .end((err, res) => {
+                    expect(res.status).to.equal(200);
+                    expect(res.body.message).to.equal(1);
+                    done();
+                });
         });
     });
-  });
-  describe("PUT /api/comments/:comment_id", () => {
-    it("should update the vote count of a particular comment", done => {
-      request(server)
-        .put(`/api/comments/${usefulData.comments[0]._id}?vote=up`)
-        .end((err, res) => {
-          expect(res.status).to.equal(200);
-          expect(res.body.message).to.equal(1);
-          done();
+    describe("PUT /api/comments/:comment_id", () => {
+        it("should update the vote count of a particular comment", done => {
+            request(server)
+                .put(`/api/comments/${usefulData.comments[0]._id}?vote=up`)
+                .end((err, res) => {
+                    expect(res.status).to.equal(200);
+                    expect(res.body.message).to.equal(1);
+                    done();
+                });
         });
     });
-  });
+    describe("DELETE /api/comments/:comment_id", () => {
+        it("should delete a particular comment", done => {
+            request(server)
+                .delete(`/api/comments/${usefulData.comments[0]._id}`)
+                .end((err, res) => {
+                    expect(res.status).to.equal(200);
+                    expect(res.body.message).to.equal("You've deleted your comment.");
+                    done();
+                });
+        });
+    });
 });
