@@ -196,4 +196,18 @@ describe('API', function () {
                 });
         });
     });
+    describe('GET /api/users/:user_name', function () {
+        it('should return the specified user', function (done) {
+            request(server)
+                .get(`/api/users/northcoder`)
+                .end((err, res) => {
+                    if (err) done(err);
+                    else {
+                        expect(res.status).to.equal(200);
+                        expect(res.body.username).to.equal('northcoder');
+                        done();
+                    }
+                });
+        });
+    });
 });
