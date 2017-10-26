@@ -44,3 +44,17 @@ exports.getAllCommentsForArticle = (req, res, next) => {
     res.json(comments);
   });
 };
+
+exports.postNewCommentToArticle = (req, res, next) => { // eslint-disable-line no-unused-vars
+  const id = req.params.article_id;
+  var comment = new Comments();
+  comment.body = req.body.comment;
+  comment.belongs_to = id;
+
+  comment
+    .save()
+    .then((comment) => {
+      res.status(201).json({comment});
+    })
+    .catch(console.log);  
+};
