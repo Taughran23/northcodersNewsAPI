@@ -58,3 +58,23 @@ exports.postNewCommentToArticle = (req, res, next) => { // eslint-disable-line n
     })
     .catch(console.log);  
 };
+
+exports.putVoteCount = (req, res, next) => {
+  const query = req.query.vote;
+  const id = req.params.article_id;
+  let inc;
+  if (query === "up") inc = 1;
+  if (query === "down") inc = -1;
+
+  Articles.findByIdAndUpdate(
+    id,
+    { $inc: { votes: inc } },
+    { new: true },
+    (err, article) => {
+      if (err) {
+        return next(err);
+      }
+      res.json({ message: article.votes });
+    }
+  );
+};
