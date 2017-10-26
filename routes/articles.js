@@ -3,7 +3,8 @@ const router = require('express').Router();
 const {
   getAllArticles,
   getAllCommentsForArticle,
-  postNewCommentToArticle
+  postNewCommentToArticle, 
+  putVoteCount
 } = require('../controllers/controllers');
 
 router.route('/')
@@ -12,5 +13,8 @@ router.route('/')
 router.route('/:article_id/comments')
   .get(getAllCommentsForArticle)
   .post(postNewCommentToArticle);
+
+router.route('/:article_id')
+  .put(putVoteCount);
 
 module.exports = router;
