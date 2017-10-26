@@ -149,4 +149,16 @@ describe('API', function () {
                 });
         });
     });
+    describe("POST /api/articles/:article_id/comments", () => {
+    it("should post a comment to a particular article", done => {
+      request(server)
+        .post(`/api/articles/${usefulData.articles[0]._id}/comments`)
+        .send({ comment: "HELLO, IS IT ME YOU ARE LOOKING FOOOOR" })
+        .end((err, res) => {
+          expect(res.status).to.equal(201);
+          expect(res.body.comment.body).to.equal('HELLO, IS IT ME YOU ARE LOOKING FOOOOR');
+          done();
+        });
+    });
+  });
 });
