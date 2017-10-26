@@ -1,14 +1,16 @@
 const router = require('express').Router();
 
 const {
-  getAllArticles, 
-   getAllCommentsForArticle
+  getAllArticles,
+  getAllCommentsForArticle,
+  postNewCommentToArticle
 } = require('../controllers/controllers');
 
 router.route('/')
-    .get(getAllArticles);
+  .get(getAllArticles);
 
 router.route('/:article_id/comments')
-    .get(getAllCommentsForArticle);
+  .get(getAllCommentsForArticle)
+  .post(postNewCommentToArticle);
 
 module.exports = router;
