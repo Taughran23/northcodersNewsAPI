@@ -125,4 +125,28 @@ describe('API', function () {
                 });
         });
     });
+    describe('GET /api/articles/:article_id/comments', function () {
+        it('responds with status code 200', function (done) {
+            request(server)
+                .get(`/api/articles/${usefulData.articles[0]._id}/comments`)
+                .end((err, res) => {
+                    if (err) done(err);
+                    else {
+                        expect(res.status).to.equal(200);
+                        done();
+                    }
+                });
+        });
+        it('responds with an array', function (done) {
+            request(server)
+                .get(`/api/articles/${usefulData.articles[0]._id}/comments`)
+                .end((err, res) => {
+                    if (err) done(err);
+                    else {
+                        expect(Array.isArray(res.body)).to.equal(true);
+                        done();
+                    }
+                });
+        });
+    });
 });
