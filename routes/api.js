@@ -4,7 +4,8 @@ const articlesRouter = require('./articles');
 const topicsRouter = require('./topics');
 
 const {
-    putCommentVoteCount
+    putCommentVoteCount,
+    deleteComment
 } = require('../controllers/controllers');
 
 router.use('/articles', articlesRouter);
@@ -12,6 +13,7 @@ router.use('/articles', articlesRouter);
 router.use('/topics', topicsRouter);
 
 router.route('/comments/:comment_id')
-    .put(putCommentVoteCount);
+    .put(putCommentVoteCount)
+    .delete(deleteComment);
 
 module.exports = router;
