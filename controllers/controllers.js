@@ -1,4 +1,4 @@
-const { Articles, Topics, Comments } = require("../models/models");
+const { Articles, Topics, Comments, Users } = require("../models/models");
 
 exports.getAllArticles = (req, res, next) => {
   Articles.find({}, (err, articles) => {
@@ -106,5 +106,18 @@ exports.deleteComment = (req, res, next) => {
       return next(err);
     }
     res.json({ message: "You've deleted your comment." });
+  });
+};
+
+exports.getUserProfile = (req, res, next) => {
+  const username = req.params.username;
+  Users.findOne({ username: username }, (err, user) => {
+    if (!user) {
+      return next({status: 404, message: 'User not found'});
+    }
+    if (err) {
+      return next(err);
+    }
+    res.json(user);
   });
 };
