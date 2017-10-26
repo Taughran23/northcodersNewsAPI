@@ -1,0 +1,33 @@
+{
+  "name": "northcodersnewsapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "config.js",
+  "scripts": {
+    "test": "mocha ./spec",
+    "start": "nodemon server.js",
+    "lint": "eslint ./",
+    "posttest": "npm run lint",
+    "precommit": "npm test"
+  },
+  "dependencies": {
+    "async": "^2.1.4",
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.15.2",
+    "chance": "^1.0.4",
+    "cors": "^2.8.4",
+    "express": "^4.14.0",
+    "log4js": "^1.0.1",
+    "moment": "^2.17.0",
+    "mongoose": "^4.7.0",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "chai": "^4.0.2",
+    "husky": "^0.13.4",
+    "mocha": "^3.4.2",
+    "supertest": "^3.0.0"
+  },
+  "author": "",
+  "license": "ISC"
+}
