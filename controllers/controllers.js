@@ -78,3 +78,23 @@ exports.putVoteCount = (req, res, next) => {
     }
   );
 };
+
+exports.putCommentVoteCount = (req, res, next) => {
+  const query = req.query.vote;
+  const id = req.params.comment_id;
+  let inc;
+  if (query === "up") inc = 1;
+  if (query === "down") inc = -1;
+
+  Comments.findByIdAndUpdate(
+    id,
+    { $inc: { votes: inc } },
+    { new: true },
+    (err, comment) => {
+      if (err) {
+        return next(err);
+      }
+      res.json({ message: comment.votes });
+    }
+  );
+};
