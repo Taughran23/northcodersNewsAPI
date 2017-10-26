@@ -98,3 +98,13 @@ exports.putCommentVoteCount = (req, res, next) => {
     }
   );
 };
+
+exports.deleteComment = (req, res, next) => {
+  const id = req.params.comment_id;
+  Comments.findByIdAndRemove(id, err => {
+    if (err) {
+      return next(err);
+    }
+    res.json({ message: "You've deleted your comment." });
+  });
+};
