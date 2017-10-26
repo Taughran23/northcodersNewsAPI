@@ -161,4 +161,15 @@ describe('API', function () {
         });
     });
   });
+   describe("PUT /api/articles/:article_id", () => {
+    it("should update the vote count of a particular article", done => {
+      request(server)
+        .put(`/api/articles/${usefulData.articles[0]._id}?vote=up`)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body.message).to.equal(1);
+          done();
+        });
+    });
+  });
 });
