@@ -1,4 +1,4 @@
-const { Articles, Topics } = require("../models/models");
+const { Articles, Topics, Comments } = require("../models/models");
 
 exports.getAllArticles = (req, res, next) => {
   Articles.find({}, (err, articles) => {
@@ -29,5 +29,18 @@ exports.getArticlesByTopic = (req, res, next) => {
       return next(err);
     }
     res.json({articles});
+  });
+};
+
+exports.getAllCommentsForArticle = (req, res, next) => {
+  const id = req.params.article_id;
+  Comments.find({ belongs_to: id }, (err, comments) => {
+    if (!comments.length) {
+      return next({status: 404, message: 'Comment not found'});
+    }
+    if (err) {
+      return next(err);
+    }
+    res.json(comments);
   });
 };
