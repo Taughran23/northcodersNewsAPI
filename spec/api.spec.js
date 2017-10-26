@@ -90,4 +90,39 @@ describe('API', function () {
                 });
         });
     });
+    describe('GET /api/topics/:topic_slug/articles', function () {
+        it('responds with status code 200', function (done) {
+            request(server)
+                .get('/api/topics/football/articles')
+                .end((err, res) => {
+                    if (err) done(err);
+                    else {
+                        expect(res.status).to.equal(200);
+                        done();
+                    }
+                });
+        });
+        it('responds with an object', function (done) {
+            request(server)
+                .get('/api/topics/football/articles')
+                .end((err, res) => {
+                    if (err) done(err);
+                    else {
+                        expect(res.body).to.be.an("object");
+                        done();
+                    }
+                });
+        });
+        it('should have an articles property that is an array', (done) => {
+            request(server)
+                .get('/api/topics/football/articles')
+                .end((err, res) => {
+                    if (err) done(err);
+                    else {
+                        expect(Array.isArray(res.body.articles)).to.equal(true);
+                        done();
+                    }
+                });
+        });
+    });
 });
