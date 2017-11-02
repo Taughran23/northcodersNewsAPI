@@ -1,3 +1,9 @@
+if (!process.env.NODE_ENV) process.env.NODE_ENV = 'dev';
+
+require('dotenv').config({
+  path:`./.${process.env.NODE_ENV}.env`
+});
+
 var models = require('../models/models');
 var userData = require('./data/user_data.js');
 var articleData = require('./data/articles');
@@ -11,7 +17,8 @@ var logger = log4js.getLogger();
 var moment = require('moment');
 var DBs = require('../config').DB;
 
-mongoose.connect(DBs.dev, function (err) {
+
+mongoose.connect(process.env.DB_URI, function (err) {
   if (!err) {
     logger.info(`connected to database ${DBs.dev}`);
     mongoose.connection.db.dropDatabase();
