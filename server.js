@@ -11,7 +11,7 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 mongoose.promise = Promise;
 
-const router = require('./routes');
+const router = require('./routes/api');
 
 
 
