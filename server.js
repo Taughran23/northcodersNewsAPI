@@ -1,45 +1,35 @@
-
 if (!process.env.NODE_ENV) process.env.NODE_ENV = 'dev';
+if (process.env.NODE_ENV !== 'production') require('dotenv').config({
+  path:`./.${process.env.NODE_ENV}.env`
+});
 
 const express = require('express');
-const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const app = express();
-const config = require('./config');
-const db = config.DB[process.env.NODE_ENV] || process.env.DB;
-const PORT = config.PORT[process.env.NODE_ENV] || process.env.PORT;
 const cors = require('cors');
+const morgan = require('morgan');
+const mongoose = require('mongoose');
+mongoose.promise = Promise;
 
-const apiRouter = require('./routes/api');
+const router = require('./routes');
 
-mongoose.connect(db, function (err) {
+
+
+mongoose.connect(process.env.DB_URI, function (err) {
   if (!err) {
-    console.log(`connected to the Database: ${db}`);
+    console.log(`connected to the Database: ${process.env.DB_URI}`);
   } else {
     console.log(`error connecting to the Database ${err}`);
   }
 });
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use(morgan('dev'));
 app.use(cors());
-
-app.use('/api', apiRouter);
-
-app.listen(PORT, function () {
-  console.log(`listening on port ${PORT}`);
+app.use(bodyParser.json());
+app.get('/', (req, res) => {
+  res.send('hello');
 });
 
-app.use(function (err, req, res, next) {
-  if (err.status) {
-    res.status(err.status).json({message: err.message});
-  }
-  next(err);
-});
-
-app.use(function (err, req, res, next) { // eslint-disable-line no-unused-vars
-  res.status(500).json({message: 'server error'}); 
-});
+app.use('/api', router);
 
 module.exports = app;
