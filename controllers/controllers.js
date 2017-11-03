@@ -9,6 +9,16 @@ exports.getAllArticles = (req, res, next) => {
   });
 };
 
+exports.getArticle = (req, res, next) => {
+  const id = req.params.article_id;
+  Articles.findById(id, (err, article) => {
+    if (err) {
+      return next(err);
+    }
+    res.status(200).json({ article: article });
+  });
+};
+
 exports.getAllTopics = (req, res, next) => {
   Topics.find({}, (err, topics) => {
     if (err) {
