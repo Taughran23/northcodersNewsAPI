@@ -26,8 +26,8 @@ mongoose.connect(process.env.DB_URI, function (err) {
 app.use(morgan('dev'));
 app.use(cors());
 app.use(bodyParser.json());
-app.get('/', (req, res) => {
-  res.send('hello');
+app.get('/api', (req, res) => {
+  res.send("Welcome to the Northcoders News API for instructions on usage to https://github.com/Taughran23/northcodersNewsAPI");
 });
 
 app.use('/api', router);
